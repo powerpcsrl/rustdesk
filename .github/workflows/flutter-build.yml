@@ -1,6 +1,7 @@
 name: Build the flutter version of the RustDesk
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       upload-artifact:
@@ -27,6 +28,9 @@ env:
   LLVM_VERSION: "15.0.6"
   FLUTTER_VERSION: "3.24.5"
   ANDROID_FLUTTER_VERSION: "3.24.5"
+  RENDEZVOUS_SERVER: ${{ secrets.RENDEZVOUS_SERVER }}
+  RELAY_SERVER: ${{ secrets.RELAY_SERVER }}
+  RS_PUB_KEY: ${{ secrets.RS_PUB_KEY }}
   # Windows arm64 only: the first stable Flutter to ship a native arm64 Windows Dart SDK +
   # engine is 3.44. Every other platform stays on FLUTTER_VERSION (3.24.5) until Windows 7
   # support is restored after the upstream-wide Flutter bump. The arm64 job patches the few

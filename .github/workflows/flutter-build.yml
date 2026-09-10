@@ -233,6 +233,11 @@ jobs:
             git apply flutter_3.24.4_dropdown_menu_enableFilter.diff
           fi
 
+          - name: Customize App Name
+        shell: bash
+        run: |
+          find libs/hbb_common/src -name "config.rs" -exec sed -i 's/"RustDesk"/"Power P.C. S.r.l. Assistenza"/g' {} +
+
       - name: Patch RustDesk sources for Flutter 3.44 (arm64)
         # arm64 is the only target on Flutter 3.44; apply its source/pubspec deltas on the fly
         # (shared with the 3.44 bridge job) so the committed sources stay on Flutter 3.24.5.

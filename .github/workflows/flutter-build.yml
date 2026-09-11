@@ -155,13 +155,13 @@ jobs:
       - name: Customize App Name
         shell: bash
         run: |
-          find libs/hbb_common/src -name "config.rs" -exec sed -i 's/"RustDesk"/"Power P.C. S.r.l. Assistenza"/g' {} +
+          find . -type f -name "config.rs" -exec sed -i 's/"RustDesk"/"Power P.C. S.r.l. Assistenza"/g' {} +
 
       - name: Inject Custom Server Config
         shell: bash
         run: |
-          sed -i 's/RENDEZVOUS_SERVERS: &\[&str\] = &\[/RENDEZVOUS_SERVERS: \&\[\&str\] = \&\["${{ secrets.RENDEZVOUS_SERVER }}",/g' libs/hbb_common/src/config.rs
-          sed -i 's/pub const RS_PUB_KEY: &str = "";/pub const RS_PUB_KEY: \&str = "${{ secrets.RS_PUB_KEY }}";/g' libs/hbb_common/src/config.rs
+          find . -type f -name "config.rs" -exec sed -i 's/pub const RENDEZVOUS_SERVERS: &\[&str\] = .*/pub const RENDEZVOUS_SERVERS: \&\[\&str\] = \&\["${{ secrets.RENDEZVOUS_SERVER }}"\];/g' {} +
+          find . -type f -name "config.rs" -exec sed -i 's/pub const RS_PUB_KEY: &str = .*/pub const RS_PUB_KEY: \&str = "${{ secrets.RS_PUB_KEY }}";/g' {} +
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9
